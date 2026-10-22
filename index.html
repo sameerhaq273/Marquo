@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+
+    <title>Marquo</title>
+    <meta
+      name="description"
+      content="Searches torrent indexers that you supply. Shows metadata only: it hosts no content, distributes no torrents and runs no trackers."
+    />
+    <!--
+      No canonical, Open Graph, Twitter card, JSON-LD or keywords. Those exist to get a
+      public website indexed and shared, and this is source for an app you run yourself -
+      there is no site for them to describe. `robots: noindex` is here in case someone
+      serves a build anyway; it should not turn up in a search engine as though it were
+      a service.
+    -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ea580c" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#09090b" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!--
+      Fonts. One stylesheet request covers both families, so there is a single round trip.
+      `display=swap` keeps text visible while the webfont loads, and the fallback stack is
+      the system UI font, close enough that the swap does not move the layout.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    />
+
+    <!-- Material Symbols Rounded, outlined (FILL 0); icon_names keeps the font to the icons we use (must stay alphabetical) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&icon_names=18_up_rating,album,animation,apps,arrow_downward,arrow_outward,arrow_upward,campaign,category,check,check_circle,chevron_left,chevron_right,close,content_copy,description,download,draft,error,folder_zip,graphic_eq,home,image,info,memory,menu_book,movie,music_note,new_releases,open_in_new,progress_activity,search,search_off,select_all,sports_esports,subtitles,swap_vert,terminal,travel_explore,tune,tv,videocam,warning&display=block" />
+
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

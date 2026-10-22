@@ -1,0 +1,19 @@
+{
+  "_comment": [
+    "Copy this to indexers.json to choose which indexers this install searches.",
+    "indexers.json is not committed: which sites you search is your choice, not the",
+    "project's. Delete it and the app falls back to every module it can find.",
+    "",
+    "enabled    IDs, in the order results should be interleaved. An ID that nothing",
+    "           provides is ignored, so removing a module does not break this file.",
+    "pluginDirs directories of your own indexer modules, loaded as well as the bundled",
+    "           ones. A plugin with the same ID as a bundled module replaces it.",
+    "           MARQUO_INDEXER_DIR does the same thing from the environment.",
+    "",
+    "Writing one: see the contract at the top of sources/__init__.py. A module needs",
+    "ID, NAME, BASE_URL, CATEGORIES, DETAIL_PATH, search() and get_details(); that is",
+    "the whole interface."
+  ],
+  "enabled": ["1337x", "piratebay"],
+  "pluginDirs": []
+}

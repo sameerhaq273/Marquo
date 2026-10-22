@@ -1,0 +1,30 @@
+{
+  "_comment": [
+    "Copy to identity.local.json, which is gitignored, and fill in your own details.",
+    "",
+    "These are deliberately not in criteria.mjs. That file is committed and this skill's",
+    "directory is excluded from every scan, so a name or a work domain written there would",
+    "be published and invisible to the audit at the same time. A check that greps for an",
+    "email address must not ship the email address.",
+    "",
+    "allowedEmails    the addresses a commit may be authored or committed by. Anything",
+    "                 else fails B2 and S4. With this list empty, both report N-A rather",
+    "                 than passing: the audit cannot guess whose repository this is.",
+    "forbiddenDomains domains that are definitely wrong for a personal release, such as",
+    "                 an employer's. Regex source, so escape the dots.",
+    "patterns         extra things to treat as personal data wherever they appear: your",
+    "                 real name, usernames, a work domain, machine-specific folder names.",
+    "allow            matches that are supposed to be there - the name on the copyright",
+    "                 line B6 requires, a published account slug. Keep this narrow."
+  ],
+  "allowedEmails": ["you@example.com"],
+  "forbiddenDomains": ["employer\\.example\\.com"],
+  "patterns": [
+    "Your Real Name|your-username",
+    "employer\\.example\\.com",
+    "Downloads[\\\\/](Some Machine Specific Folder)"
+  ],
+  "allow": [
+    "Copyright \\(C\\) \\d{4} Your Real Name"
+  ]
+}

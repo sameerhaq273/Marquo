@@ -1,0 +1,45 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Saved home screen picks (refreshed daily by server.py)
+data/
+
+# Local configuration, never committed
+.env
+.env.local
+indexers.json
+
+# Android signing keys, never committed
+*.jks
+*.keystore
+
+# Personal identifiers for the readiness audit, never committed
+identity.local.json

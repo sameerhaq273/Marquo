@@ -15,7 +15,9 @@
     "patterns         extra things to treat as personal data wherever they appear: your",
     "                 real name, usernames, a work domain, machine-specific folder names.",
     "allow            matches that are supposed to be there - the name on the copyright",
-    "                 line B6 requires, a published account slug. Keep this narrow."
+    "                 line B6 requires, a published account slug, your own repository's",
+    "                 URL in a clone command. Publishing a repo publishes the username in",
+    "                 its URL; that is not a leak. Keep this narrow all the same."
   ],
   "allowedEmails": ["you@example.com"],
   "forbiddenDomains": ["employer\\.example\\.com"],

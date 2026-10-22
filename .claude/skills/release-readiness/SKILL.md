@@ -37,7 +37,7 @@ Every check reports one of three states:
 | **FAIL** | the criterion is not met; evidence follows as `file:line` or `commit path` |
 | **N-A** | the check could not run here, for example a path that is not a git repository |
 
-A **blocker** (`B1`-`B9`) failing means NOT READY. A **should** (`S1`-`S5`) failing is
+A **blocker** (`B1`-`B9`) failing means NOT READY. A **should** (`S1`-`S6`) failing is
 reported but does not block.
 
 `B9` is the odd one: it checks this skill's own committed files for the identity strings,

@@ -339,6 +339,28 @@ function auditRepo(name, repo) {
       ? `no ${criteria.localIdentityFile}: who the author should be is not declared`
       : wrongAuthor.length ? `${wrongAuthor.length} of ${commits.length} commits` : `${commits.length} commits checked`)
 
+  // S6: a clone command has to set up THIS project, not the one it was derived from
+  const originSlug = (() => {
+    const url = git(repo, ['remote', 'get-url', 'origin']).trim()
+    const m = url.match(/github\.com[:/]([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+?)(?:\.git)?$/i)
+    return m ? `${m[1]}/${m[2]}`.toLowerCase() : null
+  })()
+  const cloneDocs = files.filter((f) => anyMatch(criteria.cloneUrls.docPaths, f.path))
+  const strayClones = []
+  for (const f of cloneDocs) {
+    const lines = f.text.split('\n')
+    for (let i = 0; i < lines.length; i++) {
+      const m = lines[i].match(rx(criteria.cloneUrls.pattern))
+      if (!m) continue
+      const slug = `${m[1]}/${m[2]}`.toLowerCase()
+      if (originSlug && slug === originSlug) continue
+      strayClones.push({ where: `${f.path}:${i + 1}`, line: `clones ${m[1]}/${m[2]}, not ${originSlug}` })
+    }
+  }
+  record(S, 'S6', 'Clone commands point at this repository',
+    !originSlug ? 'N-A' : strayClones.length ? 'FAIL' : 'PASS', strayClones,
+    originSlug ? '' : 'no github origin remote, so there is nothing to compare against')
+
   const tel = scanFiles(files, criteria.telemetry.content, criteria.telemetry.allow)
   record(S, 'S5', 'No telemetry or analytics', tel.length ? 'FAIL' : 'PASS', tel)
 

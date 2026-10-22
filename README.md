@@ -109,8 +109,10 @@ because Metro has to bundle every module at build time and cannot discover one o
 
 ## 🔧 Installation
 ```bash
-git clone https://github.com/PyFolk-Devs/1337x_Scrapper.git
-cd 1337x_Scrapper
+git clone https://github.com/sameerhaq273/TorrentScrapper.git
+cd TorrentScrapper
+python -m venv .venv
+.venv/Scripts/activate        # Windows; on macOS or Linux: source .venv/bin/activate
 pip install -r requirements.txt
 npm install
 ```

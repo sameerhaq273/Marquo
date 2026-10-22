@@ -248,6 +248,20 @@ export default {
     forbiddenDomains: [],
   },
 
+  /**
+   * Clone commands in the docs must point at this repository.
+   *
+   * A project derived from another one inherits its README, and the install instructions
+   * are the easiest line to miss: they keep working, they just set up somebody else's
+   * project. Here the Installation section still said `git clone .../1337x_Scrapper.git`
+   * long after nothing else referred to it.
+   */
+  cloneUrls: {
+    docPaths: ['README', '\\.md$', 'docs/'],
+    /** owner and repo out of a clone command, https or ssh */
+    pattern: 'git clone\\s+\\S*github\\.com[:/]([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+?)(?:\\.git)?(?:\\s|$)',
+  },
+
   /** Telemetry and analytics */
   telemetry: {
     content: [

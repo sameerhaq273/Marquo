@@ -109,8 +109,8 @@ because Metro has to bundle every module at build time and cannot discover one o
 
 ## 🔧 Installation
 ```bash
-git clone https://github.com/sameerhaq273/TorrentScrapper.git
-cd TorrentScrapper
+git clone https://github.com/sameerhaq273/Marquo.git
+cd Marquo
 python -m venv .venv
 .venv/Scripts/activate        # Windows; on macOS or Linux: source .venv/bin/activate
 pip install -r requirements.txt

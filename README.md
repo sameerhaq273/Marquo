@@ -131,6 +131,30 @@ Then open http://localhost:5173.
 
 Use `python server.py --mock` to work on the UI with sample data and no network access.
 
+## 🧪 Tests
+
+Two runners, because there are two languages. Both are fast and neither touches a
+torrent site: the API tests run the server in mock mode.
+
+```bash
+npm test          # the TypeScript side (vitest)
+npm run test:py   # the Python side (pytest), needs the venv active
+npm run test:all  # both
+```
+
+What they cover: the pure logic on each side - release-name parsing, dates, the
+smart-TV rating, the "every word" matcher, the sensitive filter, the saved-filter
+migration, size and number formatting - plus the HTTP surface and its path guards, the
+indexer discovery and plugin loading, and a regression test for every bug found in
+review, each one naming the behaviour it pins.
+
+Deliberately not covered: component rendering and end-to-end flows. Both need a browser
+harness to say anything the type checker and a careful read do not, and neither has
+earned that yet.
+
+Fixture names are invented. A real title in a test file is what got youtube-dl taken
+down in 2020, and `.claude/skills/release-readiness` checks for them.
+
 ## ➕ Adding a site
 1. Create `sources/<site>.py` defining `ID`, `NAME`, `BASE_URL`, `CATEGORIES` and `search(query, category=None)`.
    Each result needs a `kind` (the site's category mapped to `movie`, `tv`, `game`, `app`, `book`, `music`, `adult` or `other`).

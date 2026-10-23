@@ -1,0 +1,2 @@
+# Test-only. The app itself needs nothing in here; see requirements.txt.
+pytest

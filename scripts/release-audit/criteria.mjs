@@ -20,7 +20,7 @@ export default {
    * kind of machine-specific detail blocker 2 is looking for, so it does not belong in a
    * committed file. Point at sibling checkouts with the environment variable instead:
    *
-   *   MARQUO_EXTRA_REPOS="../marquo-mobile;D:/code/whatever" node audit.mjs
+   *   MARQUO_EXTRA_REPOS="../another-checkout;D:/code/whatever" node audit.mjs
    */
   repos: ['.'],
   extraRepoEnv: 'MARQUO_EXTRA_REPOS',

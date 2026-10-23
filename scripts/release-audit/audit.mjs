@@ -13,7 +13,7 @@
  *
  * Usage:
  *   node audit.mjs
- *   MARQUO_EXTRA_REPOS="../marquo-mobile" node audit.mjs
+ *   MARQUO_EXTRA_REPOS="../another-checkout" node audit.mjs
  */
 import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync, statSync } from 'node:fs'

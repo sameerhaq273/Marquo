@@ -1,0 +1,78 @@
+name: CI
+
+# Runs on every push to main and on every pull request, including ones from forks.
+# A fork's pull request runs with a read-only token and no access to secrets, which is
+# what makes it safe to run a stranger's code here at all.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  # A new push to the same branch cancels the run still going for the old one
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    name: Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck and build
+        run: npm run build
+
+      - name: Tests
+        run: npm test
+
+  api:
+    name: API
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Tests
+        run: python -m pytest
+
+  readiness:
+    name: Release readiness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The audit reads the whole history, not just the tip
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # No identity file here - that one is per-machine and never committed - so the
+      # commit-identity checks report N-A and the rest still run. What this catches on a
+      # pull request is a hardcoded indexer list, a real title in a fixture, a donate
+      # link, a deploy config, or a README that has quietly stopped saying what the
+      # project does and does not do. It exits non-zero when a blocker fails.
+      - name: Audit
+        run: node scripts/release-audit/audit.mjs

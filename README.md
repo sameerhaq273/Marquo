@@ -15,6 +15,7 @@ Search several torrent sites at once (currently **1337x**, **The Pirate Bay**, *
 - [Tests](#-tests)
 - [Adding a site](#-adding-a-site)
 - [Notes](#-notes)
+- [Contributing](#-contributing)
 - [Built with AI](#-built-with-ai)
 - [Attribution](#-attribution)
 - [License](#-license)
@@ -198,6 +199,16 @@ The API and the web UI (source filter, Source column, categories) pick it up aut
 - The sensitive filter runs in the browser on the results the API returns, like hiding dead torrents does; the server is unchanged. Its word list is `PREFIXES` / `WORDS` / `PHRASES` in `src/lib/sensitive.ts`. Names are flattened first (lower case, every separator to a space), so `Some.Title.XXX.1080p` and `strap_on` match as words. Terms ordinary enough to appear in an everyday title (`sex`, `naked`, `adult …`, `hard core`) are deliberately left out, so ordinary releases that happen to contain them are not swept up; `sexy`, `sexual`, `sex tape` and the orientation terms are in. Nothing disappears silently either way: the result count reads "187 of 200".
 - If one site fails or has no matching category, the others still return results and the UI shows a notice.
 - Works on Windows, Linux, and macOS.
+
+## 🤝 Contributing
+
+Pull requests are welcome, and so is forking it and going your own way - the licence
+exists to protect that. [CONTRIBUTING.md](CONTRIBUTING.md) covers setup, tests and what
+is and is not likely to be merged. Security problems go through the
+[private reporting channel](SECURITY.md), not a public issue.
+
+You probably do not need to change this repository to add an indexer: the list is
+configuration, and a module of your own loads from a directory you choose.
 
 ## 🤖 Built with AI
 

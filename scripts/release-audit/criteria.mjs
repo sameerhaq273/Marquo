@@ -27,7 +27,11 @@ export default {
 
   /** Paths never scanned, in the working tree or in history */
   ignorePaths: [
-    '\\.claude/skills/release-readiness/', // the audit would match its own rules
+    '(^|/)scripts/release-audit/', // the audit would match its own rules
+    // Where these files used to live. History keeps the old path forever, so this entry
+    // has to stay even though nothing is there now - without it the rule file matches
+    // its own patterns in every commit made before the move.
+    '(^|/)\\.claude/skills/release-readiness/',
     'node_modules/',
     'package-lock\\.json$',
     '\\.venv/',

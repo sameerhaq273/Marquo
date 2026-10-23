@@ -2,6 +2,9 @@
 /**
  * Marquo open-source readiness audit.
  *
+ * Plain Node, no dependencies. Run it from the repository root:
+ *   node scripts/release-audit/audit.mjs
+ *
  * Reads the rules in criteria.mjs, checks the repository against them, and prints a
  * report: every check as PASS, FAIL or N-A with file:line evidence, then one verdict
  * line. Exits 1 when any blocker fails, so it also works in a hook or a pipeline.
@@ -19,7 +22,7 @@ import { fileURLToPath } from 'node:url'
 import criteria from './criteria.mjs'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
-const ROOT = resolve(HERE, '../../..')
+const ROOT = resolve(HERE, '../..')  // scripts/release-audit -> the repository root
 
 const rx = (p, flags = 'i') => new RegExp(p, flags)
 const anyMatch = (patterns, text) => patterns.some((p) => rx(p).test(text))
@@ -143,7 +146,9 @@ function history(repo) {
 }
 
 /** This skill's own directory, the one place ignorePaths deliberately blinds the scan */
-const SELF_DIR = /(^|\/)\.claude\/skills\/release-readiness\//
+// Both the current home and the one in history: an identifier committed under the old
+// path is published just as surely, so B9 has to keep looking there.
+const SELF_DIR = /(^|\/)(scripts\/release-audit|\.claude\/skills\/release-readiness)\//
 
 /** Files of this skill that a repository has committed, read without ignorePaths */
 function selfFiles(repo) {

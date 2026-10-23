@@ -416,8 +416,9 @@ def _mock_featured():
 
 if __name__ == "__main__":
     print(f" * Sources: {', '.join(site.BASE_URL for site in SITES)}{'  (MOCK MODE)' if MOCK else ''}")
-    # A host passes the port to bind in PORT, and needs 0.0.0.0 rather than loopback.
-    # In production the Dockerfile runs gunicorn against `server:app` instead of this.
+    # PORT and HOST are read from the environment so this can be bound somewhere other
+    # than loopback without editing the file. There is no production deployment to
+    # describe here: see the README for why there is no hosted instance.
     port = int(os.getenv("PORT", "5000"))
     host = os.getenv("HOST", "127.0.0.1")
     app.run(host=host, port=port, debug=os.getenv("FLASK_DEBUG", "1") == "1", use_reloader=False)

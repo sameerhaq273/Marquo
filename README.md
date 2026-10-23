@@ -153,7 +153,7 @@ harness to say anything the type checker and a careful read do not, and neither 
 earned that yet.
 
 Fixture names are invented. A real title in a test file is what got youtube-dl taken
-down in 2020, and `.claude/skills/release-readiness` checks for them.
+down in 2020, and `scripts/release-audit` checks for them.
 
 ## ➕ Adding a site
 1. Create `sources/<site>.py` defining `ID`, `NAME`, `BASE_URL`, `CATEGORIES` and `search(query, category=None)`.

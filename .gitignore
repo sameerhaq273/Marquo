@@ -44,9 +44,8 @@ indexers.json
 # Personal identifiers for the readiness audit, never committed
 identity.local.json
 
-# Third-party agent skills, installed per machine (npx skills add). Not ours to vendor.
+# Editor and agent tooling, set up per machine rather than per project. The readiness
+# audit itself is committed, as scripts/release-audit.
+.claude/
 .agents/
-.claude/skills/deploy-to-vercel/
-.claude/skills/vercel-*/
-.claude/skills/web-design-guidelines/
-.claude/skills/writing-guidelines/
+skills-lock.json

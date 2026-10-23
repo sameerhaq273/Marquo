@@ -2,6 +2,11 @@
 
 Sites differ: The Pirate Bay already requires every word, 1337x returns titles with
 any of them. Filtering here makes all sources (including ones added later) behave alike.
+
+Also lives on the phone, as src/lib/format.ts (matchesAllWords) in the marquo-mobile repository.
+Both join tokens the same way; a substring test there once made the two disagree
+about whether a title matched.
+Change one and change the other.
 """
 import re
 import unicodedata

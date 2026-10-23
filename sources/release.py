@@ -1,5 +1,10 @@
 """Reads common details out of scene-style release names, e.g.
-"Sunny Dancer 2026 1080p WEB-DL HEVC x265 5.1 BONE"."""
+"Sunny Dancer 2026 1080p WEB-DL HEVC x265 5.1 BONE".
+
+Also lives on the phone, as src/lib/release.ts in the marquo-mobile repository.
+The regexes are kept identical so a release name reads the same on both.
+Change one and change the other.
+"""
 import re
 
 # Checked in order, so the more specific spellings win (WEB-DL before plain WEB, HDCAM before CAM)

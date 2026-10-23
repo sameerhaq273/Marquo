@@ -15,6 +15,11 @@ RawDetails (dict):
     image_links     [(page URL, thumbnail URL)] for thumbnails linking to an image-host page (optional)
     files           [{"name": str, "size": int bytes | None}]
     magnet, info_hash, seeds, leeches, size, uploader, uploaded, imdb   (any may be None)
+
+Also lives on the phone, as src/lib/analyze.ts in the marquo-mobile repository.
+The phone ports the useful half. The size helpers in particular must agree: reading
+a decimal size as binary there once moved torrents across the smart-TV size line.
+Change one and change the other.
 """
 import re
 from collections import OrderedDict

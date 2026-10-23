@@ -9,6 +9,10 @@ Backup: piratebay.live serves the classic server-rendered Pirate Bay layout
 (/search/<q>/<page>/99/<cat>, /torrent/<id>/). Same torrent ids, so a torrent found on
 either one can be opened on the other. It's only used when the main site fails or
 returns nothing.
+
+Also lives on the phone, as src/sources/piratebay.ts in the marquo-mobile repository.
+Same API shape and the same magnet building.
+Change one and change the other.
 """
 import html
 import os

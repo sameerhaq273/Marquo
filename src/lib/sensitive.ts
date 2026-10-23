@@ -8,6 +8,13 @@
  * Names are flattened first (lower case, every separator to a space), so release names
  * like `Some.Title.XXX.1080p` and `strap_on` are matched the same as plain words.
  */
+/**
+ * Also lives on the phone, as src/lib/sensitive.ts in the marquo-mobile repository.
+ * The prefix, word and phrase lists are carried over unchanged - four words were
+ * removed from them deliberately, and removing them in one app only would mean the
+ * two hide different results.
+ * Change one and change the other.
+ */
 
 /** Shared kinds (sources/__init__.py KINDS) that are sensitive whatever the name says */
 const SENSITIVE_KINDS = new Set(['adult'])

@@ -1,3 +1,9 @@
+/**
+ * Also lives on the phone, as src/lib/filters.ts in the marquo-mobile repository.
+ * The phone has no saved-filter versioning, but the year cleaning, the sort cycle and
+ * the active count all behave the same.
+ * Change one and change the other.
+ */
 import { SENSITIVE_CATEGORIES } from './sensitive'
 
 export type SortKey = 'match' | 'name' | 'size' | 'seeds' | 'leeches' | 'date'

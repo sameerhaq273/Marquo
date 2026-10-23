@@ -2,7 +2,12 @@
 link is only on each torrent's detail page, so it's fetched on demand.
 
 Mirrors share the same layout and torrent ids, so every call takes the mirror's base
-URL and the public functions try the main site first, then the backups."""
+URL and the public functions try the main site first, then the backups.
+
+Also lives on the phone, as src/sources/x1337.ts in the marquo-mobile repository.
+Same selectors and the same mirror list; a layout change breaks both at once.
+Change one and change the other.
+"""
 import os
 import re
 from concurrent.futures import ThreadPoolExecutor

@@ -15,7 +15,6 @@ import { LogoMark } from './Logo'
 export function HomeBanner({ sources }: { sources: Source[] }) {
   return (
     <Box
-      data-animate
       sx={{
         position: 'relative',
         overflow: 'hidden',

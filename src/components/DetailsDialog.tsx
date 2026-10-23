@@ -159,7 +159,7 @@ function Content({
   const files = allFiles ? details.files.list : details.files.list.slice(0, FILES_SHOWN)
 
   return (
-    <Stack spacing={3} data-animate sx={{ py: 2.5, animation: 'fade-in 220ms ease-out both' }}>
+    <Stack spacing={3} sx={{ py: 2.5, animation: 'fade-in 220ms ease-out both' }}>
       {/* Poster + key facts */}
       <Box sx={{ display: 'grid', gap: 2.5, gridTemplateColumns: { sm: '180px 1fr' } }}>
         <Poster

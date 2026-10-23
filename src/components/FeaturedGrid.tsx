@@ -158,7 +158,6 @@ function FeaturedCard({
 
   return (
     <Card
-      data-animate
       sx={{
         height: 1,
         display: 'flex',

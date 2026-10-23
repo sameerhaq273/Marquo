@@ -176,9 +176,18 @@ export const theme = createTheme({
         '@keyframes fade-up': { from: { opacity: 0, transform: 'translateY(8px)' }, to: { opacity: 1, transform: 'none' } },
         '@keyframes fade-in': { from: { opacity: 0 }, to: { opacity: 1 } },
         '@keyframes pop': { '0%': { opacity: 0, transform: 'scale(0.4)' }, '60%': { opacity: 1, transform: 'scale(1.15)' }, '100%': { transform: 'none' } },
+        // Transitions were already cut for everything, but animations only for elements
+        // tagged data-animate - and five of the ten animated elements had no such tag,
+        // including three `spin 1s infinite` loaders that kept turning. Cutting both on
+        // the universal selector covers whatever gets animated next, which the tag never
+        // could. Loaders freeze, and their aria-busy and label still say what is going on.
         '@media (prefers-reduced-motion: reduce)': {
-          '*, *::before, *::after': { transitionDuration: '0.01ms !important', scrollBehavior: 'auto !important' },
-          '[data-animate]': { animation: 'none !important' },
+          '*, *::before, *::after': {
+            animationDuration: '0.01ms !important',
+            animationIterationCount: '1 !important',
+            transitionDuration: '0.01ms !important',
+            scrollBehavior: 'auto !important',
+          },
         },
         // Material Symbols Rounded, outlined (FILL 0); loaded in index.html
         '.icon': {

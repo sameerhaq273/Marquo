@@ -162,7 +162,7 @@ export const ResultsTable = memo(function ResultsTable({ torrents, loading, sort
                 </TableRow>
               ))
             : torrents.map((t, i) => (
-                <TableRow key={torrentKey(t)} hover data-animate sx={{ '&:last-child td': { borderBottom: 0 }, animation: 'fade-in 240ms ease-out both', animationDelay: `${Math.min(i, 20) * 12}ms` }}>
+                <TableRow key={torrentKey(t)} hover sx={{ '&:last-child td': { borderBottom: 0 }, animation: 'fade-in 240ms ease-out both', animationDelay: `${Math.min(i, 20) * 12}ms` }}>
                   <TableCell>
                     <Title torrent={t} />
                   </TableCell>
@@ -214,7 +214,6 @@ export const ResultsTable = memo(function ResultsTable({ torrents, loading, sort
               <Paper
                 component="li"
                 key={torrentKey(t)}
-                data-animate
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',

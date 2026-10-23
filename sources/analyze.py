@@ -16,7 +16,7 @@ RawDetails (dict):
     files           [{"name": str, "size": int bytes | None}]
     magnet, info_hash, seeds, leeches, size, uploader, uploaded, imdb   (any may be None)
 
-Also lives on the phone, as src/lib/analyze.ts in the marquo-mobile repository.
+Also lives on the phone, as src/lib/analyze.ts in the Android app, which is not published.
 The phone ports the useful half. The size helpers in particular must agree: reading
 a decimal size as binary there once moved torrents across the smart-TV size line.
 Change one and change the other.

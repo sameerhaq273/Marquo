@@ -1,7 +1,7 @@
 """Reads common details out of scene-style release names, e.g.
 "Sunny Dancer 2026 1080p WEB-DL HEVC x265 5.1 BONE".
 
-Also lives on the phone, as src/lib/release.ts in the marquo-mobile repository.
+Also lives on the phone, as src/lib/release.ts in the Android app, which is not published.
 The regexes are kept identical so a release name reads the same on both.
 Change one and change the other.
 """

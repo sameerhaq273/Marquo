@@ -10,7 +10,7 @@ Backup: piratebay.live serves the classic server-rendered Pirate Bay layout
 either one can be opened on the other. It's only used when the main site fails or
 returns nothing.
 
-Also lives on the phone, as src/sources/piratebay.ts in the marquo-mobile repository.
+Also lives on the phone, as src/sources/piratebay.ts in the Android app, which is not published.
 Same API shape and the same magnet building.
 Change one and change the other.
 """

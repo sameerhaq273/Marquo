@@ -54,8 +54,9 @@ and `get_details()` - and either drop it in `sources/` or put it in a directory 
 `pluginDirs` (or `MARQUO_INDEXER_DIR`). A plugin whose `ID` matches a bundled module
 replaces it. Nothing needs to be registered anywhere else; the API and the UI pick it up.
 
-The Android app works the same way but declares its list in `src/sources/indexers.config.ts`,
-because Metro has to bundle every module at build time and cannot discover one on a phone.
+There is an Android build of Marquo, which is not published. It works the same way but
+declares its list in one file rather than discovering modules, because Metro bundles
+everything at build time and a phone has no directory to scan.
 
 
 ## 📦 Features
@@ -182,6 +183,13 @@ The API and the web UI (source filter, Source column, categories) pick it up aut
 - The sensitive filter runs in the browser on the results the API returns, like hiding dead torrents does; the server is unchanged. Its word list is `PREFIXES` / `WORDS` / `PHRASES` in `src/lib/sensitive.ts`. Names are flattened first (lower case, every separator to a space), so `Some.Title.XXX.1080p` and `strap_on` match as words. Terms ordinary enough to appear in an everyday title (`sex`, `naked`, `adult …`, `hard core`) are deliberately left out, so ordinary releases that happen to contain them are not swept up; `sexy`, `sexual`, `sex tape` and the orientation terms are in. Nothing disappears silently either way: the result count reads "187 of 200".
 - If one site fails or has no matching category, the others still return results and the UI shows a notice.
 - Works on Windows, Linux, and macOS.
+
+## 📄 Attribution
+
+Marquo began as a derivative of [1337x_Scrapper](https://github.com/PyFolk-Devs/1337x_Scrapper)
+(MIT), a single-file command-line tool. That file is no longer here, but the function
+that reads 1337x's results table still comes from it. [NOTICE](NOTICE) says exactly
+which part and carries their copyright and licence, as MIT requires.
 
 ## ✅ License
 

@@ -15,7 +15,7 @@ Anything without one of the two audio formats gets no rating.
 A torrent's details (MediaInfo, description, file names) are the better source; the release
 name is the fallback, and is what search results are rated from until details are checked.
 
-Also lives on the phone, as src/lib/compat.ts in the marquo-mobile repository.
+Also lives on the phone, as src/lib/compat.ts in the Android app, which is not published.
 The tiers, the audio patterns and the 6 GB size line have to match, or the two apps
 rate the same torrent differently.
 Change one and change the other.

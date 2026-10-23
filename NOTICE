@@ -1,0 +1,46 @@
+Marquo
+Copyright (C) 2026 Muhammad Sameer Ul Haq
+
+This project is licensed under the GNU Affero General Public License v3.0; see
+LICENSE for the full terms. It contains third-party code under a different
+licence, reproduced below as that licence requires.
+
+--------------------------------------------------------------------------------
+
+1337x_Scrapper
+https://github.com/PyFolk-Devs/1337x_Scrapper
+
+Marquo began as a derivative of this project, a single-file command-line torrent
+search tool. Its own file is no longer here, but the function that reads 1337x's
+results table is derived from it: the row and cell selectors, the order the cells
+are read in, the names the values are held under, and the predicate that finds the
+size cell are all substantially as that project wrote them.
+
+That function lives in sources/x1337.py. The Android app's src/sources/x1337.ts is
+a port of the same code and carries the same history.
+
+Everything else here - the API, the frontend, the other indexers, the analysis of a
+torrent's details, the smart-TV rating, the filters and the tests - was written for
+this project.
+
+MIT License
+
+Copyright (c) 2025 PyFolk Devs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -1,5 +1,5 @@
 /**
- * Also lives on the phone, as src/lib/filters.ts in the marquo-mobile repository.
+ * Also lives on the phone, as src/lib/filters.ts in the Android app, which is not published.
  * The phone has no saved-filter versioning, but the year cleaning, the sort cycle and
  * the active count all behave the same.
  * Change one and change the other.

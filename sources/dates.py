@@ -3,7 +3,7 @@
 Sites write upload dates their own way: 1337x "Oct. 05th '26" (or just "3am" for today),
 apibay "2026-10-06", the classic Pirate Bay layout "10-06 11:31", "03-14 2021" or "Y-day".
 
-Also lives on the phone, as src/lib/format.ts (formatDate) in the marquo-mobile repository.
+Also lives on the phone, as src/lib/format.ts (formatDate) in the Android app, which is not published.
 Both must produce "Jun 17, 2026" from every site format, since each app sorts on
 what it formatted.
 Change one and change the other.

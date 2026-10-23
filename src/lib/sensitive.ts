@@ -9,7 +9,7 @@
  * like `Some.Title.XXX.1080p` and `strap_on` are matched the same as plain words.
  */
 /**
- * Also lives on the phone, as src/lib/sensitive.ts in the marquo-mobile repository.
+ * Also lives on the phone, as src/lib/sensitive.ts in the Android app, which is not published.
  * The prefix, word and phrase lists are carried over unchanged - four words were
  * removed from them deliberately, and removing them in one app only would mean the
  * two hide different results.

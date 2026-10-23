@@ -4,7 +4,7 @@ link is only on each torrent's detail page, so it's fetched on demand.
 Mirrors share the same layout and torrent ids, so every call takes the mirror's base
 URL and the public functions try the main site first, then the backups.
 
-Also lives on the phone, as src/sources/x1337.ts in the marquo-mobile repository.
+Also lives on the phone, as src/sources/x1337.ts in the Android app, which is not published.
 Same selectors and the same mirror list; a layout change breaks both at once.
 Change one and change the other.
 """
@@ -113,7 +113,13 @@ def search_page(query, page=1, category=None, base=BASE_URL):
 
 
 def _parse_table(soup, page, base):
-    """The torrent table, the same on search, category and top-100 pages."""
+    """The torrent table, the same on search, category and top-100 pages.
+
+    Derived from PyFolk-Devs/1337x_Scrapper (MIT), which this project started out as:
+    the selectors, the order the cells are read in, the names the values are held
+    under and the predicate that finds the size cell are substantially theirs. See
+    NOTICE for their copyright and licence.
+    """
     table = soup.find('table', class_='table-list')
     if not table:
         # 1337x renders a plain "No results were returned" box instead of a table

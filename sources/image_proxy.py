@@ -34,6 +34,11 @@ class ImageError(Exception):
 
 
 def _check_public(url):
+    # shortcut: the name is resolved here and again by the request itself, so a hostname
+    # whose DNS changes between the two could still reach a private address. Closing it
+    # means pinning the checked IP through a custom adapter and handling SNI and
+    # certificate checks by hand, which is a worse risk than this one while the server
+    # binds to localhost. Upgrade it if this is ever exposed to another machine.
     parsed = urlparse(url)
     if parsed.scheme not in ("http", "https") or not parsed.hostname:
         raise ImageError("Only http(s) image URLs are allowed.", 400)
@@ -96,6 +101,12 @@ def fetch_image(url):
         chunks.append(chunk)
     data = b"".join(chunks)
 
+    # Drop the old entry's bytes before overwriting. Without this the running total only
+    # ever climbs - a refetch after the TTL counted the same picture twice - until it sits
+    # above CACHE_BYTES with the cache nearly empty and every image is fetched again.
+    previous = _cache.pop(url, None)
+    if previous:
+        _cache_size -= len(previous[2])
     _cache[url] = (time.time(), content_type, data)
     _cache_size += len(data)
     while _cache_size > CACHE_BYTES and _cache:

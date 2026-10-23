@@ -33,7 +33,10 @@ from pathlib import Path
 from .base import ScraperError
 
 #: Where an install declares which indexers it wants. Not committed: it is a local choice.
-INDEXERS_PATH = Path(os.getenv("MARQUO_INDEXERS", "indexers.json"))
+#: Resolved against the project directory, not the working one - a relative name meant the
+#: file was silently ignored whenever the server was started from somewhere else.
+_PROJECT_DIR = Path(__file__).resolve().parent.parent
+INDEXERS_PATH = Path(os.getenv("MARQUO_INDEXERS") or _PROJECT_DIR / "indexers.json")
 
 #: Extra directories of indexer modules, ';'-separated, outside this package entirely.
 INDEXER_DIR = os.getenv("MARQUO_INDEXER_DIR", "")

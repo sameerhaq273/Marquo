@@ -65,6 +65,7 @@ _featured_failed_at = [0.0]
 
 DETAILS_TTL = 10 * 60  # seconds
 COMPAT_TTL = 24 * 60 * 60  # a torrent's audio doesn't change
+COMPAT_MAX = 5000  # ratings are tiny, but the cache still has to stop somewhere
 _compat_cache = OrderedDict()  # (source, path) -> (time, rating from details)
 _details_cache = OrderedDict()  # (source, path) -> (time, analysis); small LRU
 
@@ -224,6 +225,8 @@ def details():
     _compat_cache[key] = (time.time(), result["compat"])
     while len(_details_cache) > 200:
         _details_cache.popitem(last=False)
+    while len(_compat_cache) > COMPAT_MAX:  # this writer used to let it grow forever
+        _compat_cache.popitem(last=False)
     return jsonify(result)
 
 
@@ -250,7 +253,7 @@ def compat():
         return jsonify(error="Torrent not found."), 404
     rating = from_details(raw, analyze(raw))
     _compat_cache[key] = (time.time(), rating)
-    while len(_compat_cache) > 5000:
+    while len(_compat_cache) > COMPAT_MAX:
         _compat_cache.popitem(last=False)
     return jsonify(compat=rating, checked=True)
 

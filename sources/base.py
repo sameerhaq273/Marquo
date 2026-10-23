@@ -1,3 +1,4 @@
+import threading
 from urllib.parse import quote, urlparse
 
 import cloudscraper
@@ -13,9 +14,23 @@ class ScraperError(Exception):
         self.status = status  # HTTP status when the site answered with an error code
 
 
+_session = None
+_session_lock = threading.Lock()
+
+
 def session():
-    # cloudscraper = requests + Cloudflare's basic JS challenge
-    return cloudscraper.create_scraper()
+    """One scraper for the whole process.
+
+    cloudscraper = requests + Cloudflare's basic JS challenge. Building a new one per
+    request threw away the clearance cookie it had just earned, so every request re-ran
+    the challenge and opened a new connection; reusing it keeps both.
+    """
+    global _session
+    if _session is None:
+        with _session_lock:
+            if _session is None:
+                _session = cloudscraper.create_scraper()
+    return _session
 
 
 def host(url):
@@ -85,6 +100,8 @@ def first_working(site_name, attempts, notes=None):
         problems.append(f"{label} found nothing")
     if answered:
         return None
+    if not problems:  # nothing was even tried
+        raise ScraperError(f"{site_name}: no mirrors to try")
     raise ScraperError("main site and backups all failed: " + "; ".join(problems) if len(attempts) > 1 else problems[0])
 
 

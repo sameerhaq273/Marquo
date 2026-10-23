@@ -99,8 +99,14 @@ async function getJson<T>(url: string, signal?: AbortSignal, init?: RequestInit)
   try {
     data = await response.json()
   } catch {
-    // Vite's proxy answers with an empty 500 when server.py isn't running
-    throw new Error("Can't reach the scraper API. Start it with: python server.py")
+    // Vite's proxy answers with an empty 500 when server.py isn't running. Anything else
+    // that isn't JSON is a different problem, and saying "start the server" sends you off
+    // debugging the wrong one.
+    throw new Error(
+      response.status >= 500
+        ? "Can't reach the scraper API. Start it with: python server.py"
+        : `Request failed (${response.status})`,
+    )
   }
   if (!response.ok || !data) {
     throw new Error(data?.error ?? `Request failed (${response.status})`)

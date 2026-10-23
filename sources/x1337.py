@@ -153,9 +153,14 @@ def _parse_table(soup, page, base):
                 'uploader': uploader,
                 'upload_date': upload_date
             })
-        except Exception as e:
-            print(f"⚠️ Skipped row due to error: {e}")
+        except Exception:
             continue
+    # One unreadable row is an odd row. Every row unreadable is the table's shape having
+    # changed, and swallowing that showed the user "nothing found" for a site that had
+    # answered with a full page. Failing here lets a backup mirror be tried and puts a
+    # real message on screen instead.
+    if rows and not results:
+        raise ScraperError(f"{host(base)}: the results table has {len(rows)} rows but none could be read")
     return results, has_next
 
 

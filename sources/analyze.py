@@ -440,7 +440,9 @@ def _music(title, text, pairs, file_groups, tracks):
     track_count = file_groups.get("audio", {}).get("count") or len(tracks) or None
     return [
         ("Artist", _find(pairs, "artist", "performer") or (artist_album.group(1) if artist_album else None)),
-        ("Album", _find(pairs, "album", "title") if _find(pairs, "album") else (artist_album.group(2) if artist_album else None)),
+        # _find returns whichever key appears first, so asking for "album" or "title"
+        # together could answer with the track title even when an Album row existed.
+        ("Album", _find(pairs, "album") or _find(pairs, "title") or (artist_album.group(2) if artist_album else None)),
         ("Format", fmt),
         ("Quality", quality.group(0) if quality else None),
         ("Tracks", str(track_count) if track_count else None),
@@ -689,7 +691,10 @@ def analyze(raw):
     ) if b]
 
     facts = _clean([
-        ("Size", raw.get("size") or format_bytes(sum(f.get("size") or 0 for f in files)) or None),
+        # Only add the files up when at least one of them said how big it was: summing a
+        # list of unknowns gives 0, and format_bytes(0) is "0 B", which reads as a fact.
+        ("Size", raw.get("size") or (format_bytes(sum(f.get("size") or 0 for f in files))
+                                     if any(f.get("size") for f in files) else None)),
         ("Seeds", str(raw["seeds"]) if raw.get("seeds") is not None else None),
         ("Leeches", str(raw["leeches"]) if raw.get("leeches") is not None else None),
         ("Files", str(len(files)) if files else None),

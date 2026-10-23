@@ -412,6 +412,29 @@ export function AppLayout() {
 
   return (
     <Box component="main" ref={mainRef} sx={{ mx: 'auto', width: 1, maxWidth: 1700, px: { xs: 2, sm: 3 }, pb: { xs: 'calc(88px + env(safe-area-inset-bottom))', sm: 4 } }}>
+      {/* Off screen until it is tabbed to, so a keyboard reader can pass the search bar,
+          the sort button and the filters without walking through them on every page. */}
+      <Box
+        component="a"
+        href="#results"
+        sx={{
+          position: 'fixed',
+          left: 16,
+          top: 16,
+          zIndex: (t) => t.zIndex.tooltip + 1,
+          px: 2,
+          py: 1,
+          borderRadius: 1,
+          bgcolor: 'background.paper',
+          color: 'text.primary',
+          boxShadow: 6,
+          textDecoration: 'none',
+          transform: 'translateY(calc(-100% - 24px))',
+          '&:focus-visible': { transform: 'none' },
+        }}
+      >
+        Skip to results
+      </Box>
       {/* The layout names the app for a screen reader on pages that draw no heading of their
           own. The home banner has a visible h1, so it would be the second one there. */}
       {!onHome && (
@@ -542,7 +565,10 @@ export function AppLayout() {
           boxShadow: { xs: 'none', sm: elevation.card },
         }}
       >
-        <Outlet context={context} />
+        {/* tabIndex -1 so the skip link can actually land focus here, not just scroll */}
+        <Box id="results" tabIndex={-1} sx={{ outline: 0 }}>
+          <Outlet context={context} />
+        </Box>
       </Paper>
 
       <MobileSearch query={query} onQuery={setQuery} onSubmit={onSubmit} shownQuery={q} loading={status === 'loading'} />

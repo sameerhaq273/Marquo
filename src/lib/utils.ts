@@ -35,7 +35,7 @@ export async function copyText(text: string) {
 
 let audio: AudioContext | undefined
 
-/** Same 1000 Hz / 200 ms confirmation beep as the CLI's winsound.Beep. */
+/** A 1000 Hz, 200 ms confirmation tone, played when a magnet link is copied. */
 export function beep() {
   try {
     audio ??= new AudioContext()

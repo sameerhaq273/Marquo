@@ -101,8 +101,10 @@ export function normalizeFilters(stored: Partial<Filters> & { version?: number }
   }
   const safeSearch = filters.safeSearch !== false
   return {
-    ...year(filters.yearFrom, filters.yearTo),
     ...filters,
+    // After the spread, not before it: year() cleans the stored bounds, and spreading the
+    // raw filters on top of its result put the uncleaned ones straight back.
+    ...year(filters.yearFrom, filters.yearTo),
     excludedSources: Array.isArray(filters.excludedSources) ? filters.excludedSources : [],
     sort: filters.sort in SORT_LABELS ? filters.sort : 'match',
     sortDir: filters.sortDir === 'asc' ? 'asc' : 'desc',

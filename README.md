@@ -2,7 +2,22 @@
 
 **Search every torrent site at once.**
 
-Search several torrent sites at once (currently **1337x**, **The Pirate Bay**, **YTS** and **Nyaa**), see detailed torrent info in one merged list, and copy magnet links to the clipboard - from a web UI (React + TypeScript + MUI) or the original 1337x command line.
+Search several torrent sites at once (currently **1337x**, **The Pirate Bay**, **YTS** and **Nyaa**), see detailed torrent info in one merged list, and copy magnet links to the clipboard, from a web UI (React + TypeScript + MUI) over a small Python API.
+
+## Contents
+
+- [What this is, and what it is not](#what-this-is-and-what-it-is-not)
+  - [Choosing indexers](#choosing-indexers)
+- [Features](#-features)
+- [Project layout](#-project-layout)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Tests](#-tests)
+- [Adding a site](#-adding-a-site)
+- [Notes](#-notes)
+- [Built with AI](#-built-with-ai)
+- [Attribution](#-attribution)
+- [License](#-license)
 
 ## What this is, and what it is not
 
@@ -183,6 +198,16 @@ The API and the web UI (source filter, Source column, categories) pick it up aut
 - The sensitive filter runs in the browser on the results the API returns, like hiding dead torrents does; the server is unchanged. Its word list is `PREFIXES` / `WORDS` / `PHRASES` in `src/lib/sensitive.ts`. Names are flattened first (lower case, every separator to a space), so `Some.Title.XXX.1080p` and `strap_on` match as words. Terms ordinary enough to appear in an everyday title (`sex`, `naked`, `adult …`, `hard core`) are deliberately left out, so ordinary releases that happen to contain them are not swept up; `sexy`, `sexual`, `sex tape` and the orientation terms are in. Nothing disappears silently either way: the result count reads "187 of 200".
 - If one site fails or has no matching category, the others still return results and the UI shows a notice.
 - Works on Windows, Linux, and macOS.
+
+## 🤖 Built with AI
+
+Most of this was written with Claude, directed and reviewed by me. The commit messages
+say what changed and why, including the mistakes - a scraper that went quiet when a site
+changed its layout, a size filter that silently matched nothing, a licence notice that
+should have been here from the start.
+
+Read it before you run it, the way you would with any code you did not write yourself.
+The tests are there to help you: `npm run test:all`.
 
 ## 📄 Attribution
 

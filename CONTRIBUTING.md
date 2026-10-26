@@ -68,7 +68,7 @@ choice stays with whoever runs it.
 
 - Anything that hosts, serves or proxies content, or that would turn this into a service.
 - Anything that circumvents an access control: DRM, a paywall, a login, a rate limit.
-- Ads, donate links, affiliate codes, premium tiers, analytics, telemetry or crash
+- Ads, donate links, affiliate codes, paid tiers, analytics, telemetry or crash
   reporting. The readiness audit fails the build for most of these, and the README says
   the project does none of them.
 - Deployment configuration for a public instance. There is not going to be one.

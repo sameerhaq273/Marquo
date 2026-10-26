@@ -71,6 +71,18 @@ function git(repo, args, { max = 40 * 1024 * 1024 } = {}) {
   }
 }
 
+/** Paths `git add -A` would stage: tracked, plus untracked that git is not ignoring.
+ *
+ * This used to read `ls-files` alone, which is tracked files only - so a file written
+ * and not yet staged was invisible, and those are exactly the files most likely to be
+ * new and least likely to have been read by anyone. CONTRIBUTING.md arrived that way:
+ * the audit said READY before it was staged, and CI failed on it afterwards.
+ */
+function gitFiles(repo) {
+  const out = git(repo, ['ls-files', '--cached', '--others', '--exclude-standard'])
+  return [...new Set(out.split('\n').map((l) => l.trim()).filter(Boolean))]
+}
+
 // ------------------------------------------------------------------ gathering
 
 function ignored(path) {
@@ -79,7 +91,7 @@ function ignored(path) {
 
 /** Every tracked file's path and text, skipping what the rules exclude */
 function workingTree(repo) {
-  const listed = git(repo, ['ls-files']).split('\n').map((l) => l.trim()).filter(Boolean)
+  const listed = gitFiles(repo)
   const files = []
   for (const path of listed) {
     if (ignored(path)) continue
@@ -152,7 +164,7 @@ const SELF_DIR = /(^|\/)(scripts\/release-audit|\.claude\/skills\/release-readin
 
 /** Files of this skill that a repository has committed, read without ignorePaths */
 function selfFiles(repo) {
-  const listed = git(repo, ['ls-files']).split('\n').map((l) => l.trim()).filter(Boolean)
+  const listed = gitFiles(repo)
   const files = []
   for (const path of listed) {
     if (!SELF_DIR.test(path.replace(/\\/g, '/'))) continue

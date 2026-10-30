@@ -16,6 +16,24 @@ export function toNumber(value: string | number | null | undefined) {
   return Number.isNaN(n) ? 0 : n
 }
 
+/** Set by the Windows app (desktop.py), where a page can't open a magnet by navigating to it */
+declare global {
+  interface Window {
+    pywebview?: { api?: { open_magnet?: (url: string) => Promise<string | null> } }
+  }
+}
+
+/** Hands a magnet link to the torrent client */
+export async function openMagnet(magnet: string) {
+  const open = window.pywebview?.api?.open_magnet
+  if (!open) {
+    window.location.href = magnet
+    return
+  }
+  const error = await open(magnet)
+  if (error) throw new Error(error)
+}
+
 export async function copyText(text: string) {
   try {
     await navigator.clipboard.writeText(text)

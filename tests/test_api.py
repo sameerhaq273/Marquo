@@ -13,6 +13,37 @@ def client():
     return server.app.test_client()
 
 
+class TestBuiltUI:
+    """Only the Windows app sets WEB_DIR; everywhere else Vite serves the UI."""
+
+    @pytest.fixture
+    def web_dir(self, tmp_path, monkeypatch):
+        import server
+        (tmp_path / "index.html").write_text("the app")
+        (tmp_path / "assets").mkdir()
+        (tmp_path / "assets" / "main.js").write_text("the script")
+        (tmp_path.parent / "secret.txt").write_text("private")
+        monkeypatch.setattr(server, "WEB_DIR", str(tmp_path))
+
+    def test_without_it_the_server_is_only_an_api(self, client):
+        assert client.get("/").status_code == 404
+        assert client.get("/search").status_code == 404
+
+    def test_serves_the_page_and_its_files(self, client, web_dir):
+        assert client.get("/").text == "the app"
+        assert client.get("/assets/main.js").text == "the script"
+
+    def test_a_client_side_route_gets_the_page_so_reloads_work(self, client, web_dir):
+        assert client.get("/search?q=ubuntu").text == "the app"
+
+    def test_a_wrong_api_address_is_still_an_error_not_the_page(self, client, web_dir):
+        assert client.get("/api/nope").status_code == 404
+
+    def test_it_can_not_reach_files_outside_the_build(self, client, web_dir):
+        assert "private" not in client.get("/../secret.txt").text
+        assert "private" not in client.get("/%2e%2e/secret.txt").text
+
+
 class TestConfig:
     def test_health_names_the_indexers_this_install_searches(self, client):
         body = client.get("/healthz").get_json()

@@ -116,6 +116,8 @@ everything at build time and a phone has no directory to scan.
 | `sources/compat.py` | Smart-TV rating rules (audio mandatory, size rule for movies), from names or details |
 | `sources/base.py` | Shared fetching (status checks, Cloudflare detection) and `first_working()`, the mirror fallback |
 | `server.py` | Flask JSON API used by the web UI (`/api/config`, `/api/search`, `/api/details`, `/api/compat`, `/api/magnet`, `/api/torrent-file`, `/api/featured`, `/api/image`) |
+| `desktop.py` | The Windows app: the API and the built UI on one local port, in a window of their own |
+| `packaging/windows/` | Builds the Windows installer: `build.ps1` runs it, `marquo.spec` (PyInstaller) bundles the app, `installer.iss` (Inno Setup) makes the setup |
 | `src/` | React web UI (Vite proxies `/api` to `server.py`); routes in `src/router.tsx`, pages in `src/pages/` |
 | `src/lib/sensitive.ts` | The sensitive filter: the Adult kind plus the word list matched against release names |
 | `src/components/Logo.tsx` | The Marquo mark (a cinema marquee) and wordmark; `public/favicon.svg` is the same drawing |
@@ -147,6 +149,18 @@ npm run dev
 Then open http://localhost:5173.
 
 Use `python server.py --mock` to work on the UI with sample data and no network access.
+
+### Windows app
+Build an installer for Windows 10 and 11:
+```bash
+pip install -r requirements-desktop.txt
+npm run build:windows
+```
+This writes `release/Marquo-Setup-<version>.exe` (about 17 MB). The installed app needs no Python, Node or dev servers: `Marquo.exe` has its own copy of the UI and the API, and opens them in a window using Windows' WebView2.
+
+- It installs for the current user, without administrator rights, and includes Microsoft's WebView2 setup for the few machines without it.
+- Settings, saved home screen cards and the log (`marquo.log`) stay in `%APPDATA%\Marquo`. Uninstalling leaves that folder, so delete it to remove them too. Put an `indexers.json` there to configure indexers.
+- The installer is not code-signed, so SmartScreen shows "Windows protected your PC" the first time: choose **More info**, then **Run anyway**. Signing it takes a paid certificate.
 
 ## 🧪 Tests
 

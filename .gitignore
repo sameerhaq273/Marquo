@@ -23,6 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
+# Windows app build (packaging/windows/build.ps1)
+/build/
+/release/
+/packaging/windows/MicrosoftEdgeWebview2Setup.exe
+
 # Python
 __pycache__/
 *.py[cod]

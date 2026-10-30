@@ -47,7 +47,7 @@ import {
 import { isSensitive } from './lib/sensitive'
 import { sourceInfoMap, torrentKey } from './lib/sources'
 import { elevation } from './theme'
-import { beep, copyText, parseDate, parseSize, readStored, toNumber, writeStored } from './lib/utils'
+import { beep, copyText, openMagnet, parseDate, parseSize, readStored, toNumber, writeStored } from './lib/utils'
 
 type Toast = { id: number; kind: 'success' | 'error' | 'info'; message: string }
 
@@ -311,7 +311,7 @@ export function AppLayout() {
     const key = torrentKey(torrent)
     setCopyState(key, 'loading')
     try {
-      window.location.href = await resolveMagnet(torrent)
+      await openMagnet(await resolveMagnet(torrent))
       setToast({ id: Date.now(), kind: 'success', message: 'Opening in your torrent client…' })
     } catch (e) {
       setToast({ id: Date.now(), kind: 'error', message: e instanceof Error ? e.message : 'Could not get magnet link' })

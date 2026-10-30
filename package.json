@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
+    "build:windows": "powershell -ExecutionPolicy Bypass -File packaging/windows/build.ps1",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:py": "python -m pytest",

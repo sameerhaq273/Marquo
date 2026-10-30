@@ -15,7 +15,8 @@ from datetime import date
 from itertools import chain, zip_longest
 from urllib.parse import quote
 
-from flask import Flask, Response, jsonify, request
+from flask import Flask, Response, abort, jsonify, request, send_from_directory
+from werkzeug.utils import safe_join
 
 from sources import BY_ID, CATEGORIES, SITES, ScraperError
 from sources.analyze import analyze
@@ -35,6 +36,9 @@ app = Flask(__name__)
 # DATA_DIR moves it off the code directory, which several hosts mount read-only.
 DATA_DIR = os.getenv("DATA_DIR") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 FEATURED_FILE = os.path.join(DATA_DIR, "featured.json")
+# The built UI, for the Windows app (desktop.py), which has one server for everything.
+# Unset in development, where Vite serves it.
+WEB_DIR = os.getenv("WEB_DIR")
 
 # Browsers block a cross-origin call unless the server names the caller, and the frontend
 # is served from somewhere else once this is deployed. Only the origins listed here are
@@ -53,6 +57,18 @@ def allow_known_origins(response):
         response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
         response.headers["Access-Control-Max-Age"] = "86400"
     return response
+
+
+@app.get("/")
+@app.get("/<path:path>")
+def web(path=""):
+    """Files from the built UI; any other address is one of its client-side routes."""
+    if not WEB_DIR or path.startswith("api/"):
+        abort(404)
+    target = safe_join(WEB_DIR, path) if path else None
+    if target and os.path.isfile(target):
+        return send_from_directory(WEB_DIR, path)
+    return send_from_directory(WEB_DIR, "index.html")
 
 
 @app.route("/healthz")

@@ -1,0 +1,4 @@
+# The Windows app (desktop.py) and its build (packaging/windows/build.ps1).
+pywebview
+pyinstaller
+pillow
